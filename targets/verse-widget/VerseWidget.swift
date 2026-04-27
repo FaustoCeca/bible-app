@@ -9,7 +9,7 @@ struct DailyVerse: Codable {
 
     static let placeholder = DailyVerse(
         reference: "Juan 3:16",
-        text: "Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito..."
+        text: "Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna."
     )
 }
 
@@ -65,42 +65,96 @@ struct VerseWidgetEntryView: View {
     var entry: VerseEntry
     @Environment(\.widgetFamily) var family
 
+    private let accent = Color(red: 0.98, green: 0.75, blue: 0.14) // amber-400
+
     var body: some View {
         switch family {
+
+        // Lock screen: rectangular
         case .accessoryRectangular:
-            // Lock screen rectangular.
-            VStack(alignment: .leading, spacing: 2) {
-                Text(entry.verse.reference)
-                    .font(.caption2.bold())
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 4) {
+                    Image(systemName: "book.fill")
+                        .font(.system(size: 9, weight: .semibold))
+                    Text(entry.verse.reference)
+                        .font(.system(size: 10, weight: .semibold))
+                }
                 Text(entry.verse.text)
-                    .font(.caption2)
-                    .lineLimit(3)
+                    .font(.system(size: 11))
+                    .lineLimit(4)
+                    .opacity(0.85)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+        // Lock screen: inline
         case .accessoryInline:
-            Text("📖 \(entry.verse.reference)")
+            Label(entry.verse.reference, systemImage: "book.fill")
+                .font(.system(size: 12, weight: .medium))
+
+        // Lock screen: circular
         case .accessoryCircular:
-            VStack {
-                Text("📖").font(.title3)
-                Text(entry.verse.reference)
-                    .font(.system(size: 8, weight: .bold))
-                    .lineLimit(1)
+            ZStack {
+                Circle()
+                    .fill(.ultraThinMaterial)
+                VStack(spacing: 1) {
+                    Image(systemName: "book.fill")
+                        .font(.system(size: 14, weight: .semibold))
+                    Text(entry.verse.reference
+                            .components(separatedBy: ":").first ?? "")
+                        .font(.system(size: 8, weight: .bold))
+                        .lineLimit(1)
+                }
             }
-        default:
-            // Home screen.
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Versículo del día")
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-                Text("“\(entry.verse.text)”")
-                    .font(.system(size: 13))
-                    .italic()
-                    .lineLimit(5)
+
+        // Home screen: small
+        case .systemSmall:
+            VStack(alignment: .leading, spacing: 6) {
+                Image(systemName: "book.fill")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(accent)
                 Spacer(minLength: 0)
-                Text("— \(entry.verse.reference)")
-                    .font(.caption.bold())
-                    .foregroundColor(Color("AccentColor", bundle: nil))
+                Text("\u{201C}\(entry.verse.text)\u{201D}")
+                    .font(.system(size: 11, weight: .medium, design: .serif))
+                    .italic()
+                    .lineLimit(7)
+                    .foregroundColor(.white.opacity(0.92))
+                Text(entry.verse.reference)
+                    .font(.system(size: 9, weight: .bold))
+                    .foregroundColor(accent)
             }
             .padding(12)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+
+        // Home screen: medium & larger
+        default:
+            HStack(alignment: .top, spacing: 12) {
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(accent)
+                    .frame(width: 3)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "book.fill")
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundColor(accent)
+                        Text("Versículo del día")
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundColor(accent)
+                        Spacer()
+                    }
+                    Text("\u{201C}\(entry.verse.text)\u{201D}")
+                        .font(.system(size: 13, weight: .regular, design: .serif))
+                        .italic()
+                        .lineLimit(6)
+                        .minimumScaleFactor(0.75)
+                        .foregroundColor(.white.opacity(0.92))
+                    Spacer(minLength: 0)
+                    Text("\u{2014} \(entry.verse.reference)")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundColor(accent)
+                }
+            }
+            .padding(14)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
     }

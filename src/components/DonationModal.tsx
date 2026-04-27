@@ -22,8 +22,6 @@ interface Props {
 export function DonationModal({ visible, onClose, donationUrl }: Props) {
   const handleDonate = async () => {
     if (!donationUrl) return;
-    // Si no incluye un esquema (http://, https://, mailto:, etc.) le anteponemos https://
-    // así podés escribir el link sin protocolo y siempre se abrirá correctamente.
     const url = /^[a-z][a-z0-9+.-]*:/i.test(donationUrl)
       ? donationUrl
       : `https://${donationUrl}`;
