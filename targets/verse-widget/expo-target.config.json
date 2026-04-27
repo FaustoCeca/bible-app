@@ -1,0 +1,13 @@
+{
+  "type": "widget",
+  "name": "VerseWidget",
+  "icon": "🙏",
+  "colors": {
+    "$accent": "#fbbf24",
+    "$widgetBackground": "#0f172a"
+  },
+  "entitlements": {
+    "com.apple.security.application-groups": ["group.com.biblemobileapp.widget"]
+  },
+  "deploymentTarget": "16.0"
+}

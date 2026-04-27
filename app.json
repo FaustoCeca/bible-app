@@ -1,30 +1,59 @@
 {
   "expo": {
-    "name": "bible-mobile-app",
+    "name": "Versículo del Día",
     "slug": "bible-mobile-app",
+    "scheme": "biblemobileapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0f172a"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.biblemobileapp.app",
+      "entitlements": {
+        "com.apple.security.application-groups": ["group.com.biblemobileapp.widget"]
+      }
     },
     "android": {
+      "package": "com.biblemobileapp.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#0f172a"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "react-native-android-widget",
+        {
+          "widgets": [
+            {
+              "name": "Verse",
+              "label": "Versículo del día",
+              "minWidth": "180dp",
+              "minHeight": "80dp",
+              "description": "Muestra el versículo bíblico del día.",
+              "updatePeriodMillis": 1800000
+            }
+          ]
+        }
+      ],
+      [
+        "@bacons/apple-targets",
+        {
+          "appleTeamId": "REPLACE_WITH_YOUR_APPLE_TEAM_ID"
+        }
+      ]
+    ]
   }
 }
