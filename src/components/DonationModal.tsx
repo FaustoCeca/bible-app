@@ -60,8 +60,8 @@ export function DonationModal({ visible, onClose, donationUrl }: Props) {
           </Text>
 
           <Text style={styles.verse}>
-            "Cada uno dé como propuso en su corazón: no con tristeza, ni por necesidad, porque
-            Dios ama al dador alegre."{'\n'}
+            "Cada uno dé como propuso en su corazón: no con tristeza, o por necesidad; porque
+            Dios ama el dador alegre."{'\n'}
             <Text style={styles.verseRef}>— 2 Corintios 9:7</Text>
           </Text>
 

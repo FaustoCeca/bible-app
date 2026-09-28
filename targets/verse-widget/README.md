@@ -21,13 +21,24 @@ en `src/services/widgetSync.ts`.
    - Ambos tienen el mismo Team ID firmado.
 4. `npx expo run:ios` (o desde Xcode).
 
-## Puente nativo recomendado
+## Puente nativo (`VerseWidgetBridge`)
 
-Para escribir en el App Group desde JS, creá un módulo nativo simple
-`VerseWidgetBridge` (Swift) que haga:
+El puente que escribe en el App Group desde JS **ya está implementado** como
+módulo Expo local en [`modules/verse-widget-bridge/`](../../modules/verse-widget-bridge):
 
-```swift
-let d = UserDefaults(suiteName: appGroup)
-d?.set(jsonString, forKey: "daily_verse")
-WidgetCenter.shared.reloadTimelines(ofKind: "VerseWidget")
+- `ios/VerseWidgetBridgeModule.swift` — escribe `daily_verse` en el
+  `UserDefaults` del App Group y llama `WidgetCenter.shared.reloadTimelines`.
+- `index.ts` — expone `setVerse()`, `reloadTimelines()` y `reloadAllTimelines()`
+  a JavaScript.
+
+Al estar en `modules/` (fuera de `ios/`), Expo lo autoenlaza solo y **sobrevive
+a `expo prebuild --clean`** — no hay que agregar nada en Xcode a mano.
+
+`src/services/widgetSync.ts` lo usa así:
+
+```ts
+import VerseWidgetBridge from '../../modules/verse-widget-bridge';
+
+await VerseWidgetBridge.setVerse(appGroup, reference, text);
+VerseWidgetBridge.reloadTimelines('VerseWidget');
 ```

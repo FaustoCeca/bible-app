@@ -117,9 +117,11 @@ struct VerseWidget: Widget {
             if #available(iOS 17.0, *) {
                 VerseWidgetEntryView(entry: entry)
                     .containerBackground(Color(red: 0.06, green: 0.09, blue: 0.16), for: .widget)
+                    .widgetURL(URL(string: "biblemobileapp://"))
             } else {
                 VerseWidgetEntryView(entry: entry)
                     .background(Color(red: 0.06, green: 0.09, blue: 0.16))
+                    .widgetURL(URL(string: "biblemobileapp://"))
             }
         }
         .configurationDisplayName("Versículo del día")

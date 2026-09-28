@@ -14,6 +14,8 @@ interface Props {
 export function VerseWidget({ verse }: Props) {
   return (
     <FlexWidget
+      clickAction="OPEN_APP"
+      accessibilityLabel="Abrir la app Versículo del Día"
       style={{
         height: 'match_parent',
         width: 'match_parent',

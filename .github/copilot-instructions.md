@@ -20,5 +20,5 @@ React Native (Expo) TypeScript app that shows a daily Bible verse, with native w
 
 ## Conventions
 - Spanish UI strings
-- Use RVR1960 or similar public-domain Bible translation
+- Use Reina-Valera 1909 (public domain). NOT RVR1960 — that one is copyrighted by Sociedades Bíblicas Unidas.
 - Never commit signing keys or Apple Team IDs
