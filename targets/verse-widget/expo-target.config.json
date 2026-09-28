@@ -1,7 +1,6 @@
 {
   "type": "widget",
   "name": "VerseWidget",
-  "icon": "🙏",
   "colors": {
     "$accent": "#fbbf24",
     "$widgetBackground": "#0f172a"
